@@ -1,16 +1,18 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function LandingPage()
 {
- 
+  
   function handleClick(e){
     e.preventDefault();
     alert("Signed Up!" );
   }
+  
 return (
     <div>
-      <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Save The Crops</span>
       </header>
 
@@ -18,7 +20,7 @@ return (
     <div class="col-md-5 p-lg-5 mx-auto my-5">
       <h1 class="display-4 font-weight-normal">Save The Crops</h1>
       <p class="lead font-weight-normal">Our mission is to connect individuals with farms so that they can assist them in harvesting the crops as there is a shortage of labour due to COVID-19, and thus to stop the crops from rotting away which leads to more climate change and a negative impact on the food supply chain, volunteers are needed!</p>
-      <a class="btn btn-outline-secondary" href="#">Volunteer Today!</a>
+      <a class="btn btn-outline-secondary" href="http://localhost:3000/signin">Volunteer Today!</a>
     </div>
     <div class="product-device box-shadow d-none d-md-block"></div>
     <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
@@ -28,18 +30,25 @@ return (
     <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" >
       <div class="my-3 py-3">
         <h2 class="display-5">Add a Farm Listing</h2>
-        <button onClick={handleClick}>Submit Form</button>
+        <button  onClick={(e) => {
+      e.preventDefault();
+      window.location.href='http://localhost:3000/forms';
+      }}>Submit Form</button>
       </div>
       <div class="bg-light box-shadow mx-auto" ></div>
     </div>
     <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
       <div class="my-3 p-3">
         <h2 class="display-5">View Food Banks</h2>
-        <button onClick={handleClick}>View Now</button>
+        <button  onClick={(e) => {
+      e.preventDefault();
+      window.location.href='http://localhost:3000/foodBanks';
+      }}>View Now</button>
       </div>
       <div class="bg-dark box-shadow mx-auto" ></div>
     </div>
   </div>
+
 
   <footer class="container py-5">
     <div class="row">

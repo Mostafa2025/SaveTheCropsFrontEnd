@@ -1,61 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import "../styles/PaginatedStyle.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AppointmentCard from "./AppointmentCard";
-
-const data = [
-  {
-    title: "some randome park",
-    address: "some random address",
-    website: "www.abc.com",
-    phoneNum: "+12345678",
-  },
-  {
-    title: "some  park",
-    address: "some  address",
-    website: "www.dbc.com",
-    phoneNum: "+12345678",
-  },
-  {
-    title: "randome park",
-    address: "random address",
-    website: "www.efg.com",
-    phoneNum: "+12345678",
-  },
-  {
-    title: "randome park",
-    address: "random address",
-    website: "www.boo.com",
-    phoneNum: "+12345678",
-  },
-  {
-    title: "randome parasdak",
-    address: "random address",
-    website: "www.boo.com",
-    phoneNum: "+12345678",
-  },
-];
+import fireb from "./Fire";
 
 function Dash(props) {
   const numPerPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
+  const [bookings, setBookings] = useState([]);
+  const [user, setUser] = useState([]);
+
+  function getData() {
+    fetch(`http://localhost:5000/api/v1/bookings?userEmail=canit43016@httptuan.com`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        setBookings(response.bookings);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  
+  useEffect(() => {
+    getData();
+  }, []);
 
   const totalVisited = currentPage * numPerPage;
 
-  const display = data
-    .slice(totalVisited, totalVisited + 3)
-    .map((farm) => {
-      return (
-        <div>
-          <ul>
-            <AppointmentCard key={farm} transaction={farm} />
-          </ul>
-        </div>
-      );
-    });
+  const display = bookings.slice(totalVisited, totalVisited + 3).map((farm) => {
+    return (
+      <div>
+        <ul>
+          <AppointmentCard key={farm} transaction={farm} />
+        </ul>
+      </div>
+    );
+  });
 
-  const numOfPages = Math.ceil(data.length / 2);
+  const numOfPages = Math.ceil(bookings.length / 2);
 
   const changePage = ({ selected }) => {
     setCurrentPage(selected);
@@ -65,7 +54,12 @@ function Dash(props) {
     <div>
       <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Dashboard</span>
-        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3" onClick={props.handleLogOut} >Logout</span>
+        <span
+          class="navbar-brand col-md-3 col-lg-2 me-0 px-3"
+          onClick={props.handleLogOut}
+        >
+          Logout
+        </span>
       </header>
 
       <div class="container-fluid">
@@ -76,7 +70,7 @@ function Dash(props) {
                 <li class="nav-item">
                   <a class="nav-link active">
                     <span data-feather="home"></span>
-                    Contact Details 
+                    Contact Details
                   </a>
                 </li>
                 <img
@@ -85,35 +79,26 @@ function Dash(props) {
                   height="200"
                 ></img>
                 <li class="nav-item">
-                  <a class="nav-link">
-                    Name: Monster From Movie
-                  </a>
+                  <a class="nav-link">Name: John Doe</a>
                 </li>
+
                 <li class="nav-item">
-                  <a class="nav-link">
-                    Email: myemail@gmail.com
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    Phone Number: 111-222-4444
-                  </a>
+                  <a class="nav-link">Email: canit43016@httptuan.com</a>
                 </li>
               </ul>
-
               <br></br> <br></br>
-
               <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-
                 <span>Want to Volunteer?</span>
 
                 <a class="d-flex align-items-center text-muted"> </a>
               </h6>
-
               <ul class="nav flex-column mb-2">
                 <br></br>
                 <li class="nav-item">
-                  <button class="btn btn-outline-primary" href="#">
+                  <button class="btn btn-outline-primary"  onClick={(e) => {
+      e.preventDefault();
+      window.location.href='http://localhost:3000/listing';
+      }}>
                     View Listings
                   </button>
                 </li>
@@ -129,7 +114,7 @@ function Dash(props) {
             <div
               class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
               style={{ justifyContent: "center" }}
-            >   
+            >
               {display}
             </div>
 
@@ -141,11 +126,12 @@ function Dash(props) {
                 onPageChange={changePage}
                 containerClassName={"paginationBttns"}
               />
-              </div>
+            </div>
           </main>
         </div>
       </div>
 
+  
       <footer class="container py-5">
     <div class="row">
       

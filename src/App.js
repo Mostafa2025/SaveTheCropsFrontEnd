@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import LandingPage from "./components/LandingPage";
+import Dash from "./components/Dashboard";
+import Forms from "./components/Forms";
+import Signup from "./components/Signup";
+import Listings from "./components/Listings"
+import FoodBanks from "./components/FoodBanks"
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route exact path="/signin">
+            <Signup />
+          </Route>
+          <Route exact path="/forms">
+            <Forms />
+          </Route>
+          <Route exact path="/listing">
+            <Listings />
+          </Route>
+          <Route exact path="/foodBanks">
+            <FoodBanks />
+          </Route>
+          <Route exact path="/dashboard">
+            <Dash></Dash>
+          </Route>
+          <Route render={() => <h1>Not Found</h1>} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

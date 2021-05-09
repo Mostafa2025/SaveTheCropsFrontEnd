@@ -1,4 +1,6 @@
 import React from "react";
+import fireb from "./Fire";
+//import ServiceCrop from "../services/saveTheCrops";
 function Login(props) {
   const {
     fullname,
@@ -14,15 +16,17 @@ function Login(props) {
     emailErr,
     passwordErr,
   } = props;
-  function handleClick(e){
+  function handleClick(e) {
     setHasAccount(!hasAccount);
+   
   }
+  
   return (
-    
+    <div>
+    <h1 style={{ color:"purple", textAlign:"center"}}>Save The Crops Credentials!</h1>
     <section className="login">
       <div className="loginContainer">
-        
-      <label>Full Name</label>
+        <label>Full Name</label>
         <input
           type="text"
           autoFocus
@@ -65,9 +69,11 @@ function Login(props) {
               </p>
             </>
           )}
+         
         </div>
       </div>
     </section>
+    </div>
   );
 }
 export default Login;

@@ -3,14 +3,16 @@ import Login from "./Login";
 import Dash from "./Dashboard";
 import fireb from "./Fire";
 import "../styles/SignIn.css";
+
 function SignUp() {
-  const [fullname,setFullname] = useState("");
+  const [fullname, setFullname] = useState("");
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
+
   function handleLogin() {
     clearErrors();
 
@@ -30,7 +32,28 @@ function SignUp() {
         }
       });
   }
-  function handleSignUp() {
+  function api() {
+    fetch("http://localhost:5000/api/v1/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        username: fullname,
+        userId: "1",
+        email: email,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function handleSignUp(e) {
     clearErrors();
 
     fireb
@@ -47,6 +70,7 @@ function SignUp() {
             break;
         }
       });
+    api();
   }
   function handleLogOut() {
     fireb.auth().signOut();
@@ -68,18 +92,25 @@ function SignUp() {
     setPasswordErr("");
     setEmailErr("");
   }
-  
+  function getDetails(){
+    const result={
+      fullname:fullname,
+      email:email
+    };
+    return result;
+  }
+
   useEffect(() => {
     authListener();
   }, []);
   return (
     <div className="Signin">
       {user ? (
-        <Dash  email={email} handleLogOut={handleLogOut} />
+        <Dash getDetails={getDetails} handleLogOut={handleLogOut} />
       ) : (
         <Login
           fullname={fullname}
-          setFullname= {setFullname}
+          setFullname={setFullname}
           email={email}
           setEmail={setEmail}
           password={password}

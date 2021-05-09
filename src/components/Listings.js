@@ -1,61 +1,49 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import "../styles/PaginatedStyle.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ListingCard from "./ListingCard";
 
-const data = [
-  {
-    title: "some randome park",
-    address: "some random address",
-    website: "www.abc.com",
-    phoneNum: "+12345678",
-  },
-  {
-    title: "some  park",
-    address: "some  address",
-    website: "www.dbc.com",
-    phoneNum: "+12345678",
-  },
-  {
-    title: "randome park",
-    address: "random address",
-    website: "www.efg.com",
-    phoneNum: "+12345678",
-  },
-  {
-    title: "randome park",
-    address: "random address",
-    website: "www.boo.com",
-    phoneNum: "+12345678",
-  },
-  {
-    title: "randome parasdak",
-    address: "random address",
-    website: "www.boo.com",
-    phoneNum: "+12345678",
-  },
-];
-
 function Listings(props) {
   const numPerPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
+  const [listings,setListings]=useState([{}]);
+  function getData() {
+    fetch(`http://localhost:5000/api/v1/farms`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        setListings(response.farms);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  
+  useEffect(() => {
+    getData();
+  }, []);
 
   const totalVisited = currentPage * numPerPage;
 
-  const display = data
+  const display = listings
     .slice(totalVisited, totalVisited + 3)
     .map((farm) => {
       return (
         <div>
           <ul>
-            <ListingCard key={farm} transaction={farm} />
+            <ListingCard key={farm} farm={farm} />
           </ul>
         </div>
       );
     });
 
-  const numOfPages = Math.ceil(data.length / 2);
+  const numOfPages = Math.ceil(listings.length / 2);
 
   const changePage = ({ selected }) => {
     setCurrentPage(selected);
@@ -64,8 +52,14 @@ function Listings(props) {
   return (
     <div>
       <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Listings</span>
-        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3" onClick={props.handleLogOut} >Logout</span>
+        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3" onClick={(e) => {
+      e.preventDefault();
+      window.location.href='http://localhost:3000/';
+      }}>Go To Home Page</span>
+      <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3" onClick={(e) => {
+      e.preventDefault();
+      window.location.href='http://localhost:3000/dashboard';
+      }}>Dashboard</span>
       </header>
 
       <div class="container-fluid">

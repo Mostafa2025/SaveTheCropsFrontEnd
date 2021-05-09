@@ -1,12 +1,16 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Redirect } from "react-router";
 
 function FoodBanks() {
   return (
     <div>
 
       <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Food Banks</span>
+        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3"  onClick={(e) => {
+      e.preventDefault();
+      window.location.href='http://localhost:3000/';
+      }}>Food Banks</span>
       </header>
 
       <main role="main">
