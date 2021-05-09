@@ -37,7 +37,7 @@ const data = [
   },
 ];
 
-function Dash() {
+function Dash(props) {
   const numPerPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -65,6 +65,7 @@ function Dash() {
     <div>
       <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Dashboard</span>
+        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3" onClick={props.handleLogOut} >Logout</span>
       </header>
 
       <div class="container-fluid">

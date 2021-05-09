@@ -5,10 +5,11 @@ import App from './App';
 import LandingPage from './components/LandingPage'
 import Dash from './components/Dashboard'
 import Forms from './components/Forms'
+import Signup from './components/Signup'
 
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(<Dash />, document.getElementById("root"));
+ReactDOM.render(<Signup />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
