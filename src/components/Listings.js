@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import "../styles/PaginatedStyle.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AppointmentCard from "./AppointmentCard";
+import ListingCard from "./ListingCard";
 
 const data = [
   {
@@ -37,7 +37,7 @@ const data = [
   },
 ];
 
-function Dash(props) {
+function Listings(props) {
   const numPerPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -49,7 +49,7 @@ function Dash(props) {
       return (
         <div>
           <ul>
-            <AppointmentCard key={farm} transaction={farm} />
+            <ListingCard key={farm} transaction={farm} />
           </ul>
         </div>
       );
@@ -64,66 +64,16 @@ function Dash(props) {
   return (
     <div>
       <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Dashboard</span>
+        <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3">Listings</span>
         <span class="navbar-brand col-md-3 col-lg-2 me-0 px-3" onClick={props.handleLogOut} >Logout</span>
       </header>
 
       <div class="container-fluid">
         <div class="row">
-          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link active">
-                    <span data-feather="home"></span>
-                    Contact Details 
-                  </a>
-                </li>
-                <img
-                  src="https://www.kindpng.com/picc/m/451-4517876_default-profile-hd-png-download.png"
-                  width="200"
-                  height="200"
-                ></img>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    Name: Monster From Movie
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    Email: myemail@gmail.com
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    Phone Number: 111-222-4444
-                  </a>
-                </li>
-              </ul>
-
-              <br></br> <br></br>
-
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-
-                <span>Want to Volunteer?</span>
-
-                <a class="d-flex align-items-center text-muted"> </a>
-              </h6>
-
-              <ul class="nav flex-column mb-2">
-                <br></br>
-                <li class="nav-item">
-                  <button class="btn btn-outline-primary" href="#">
-                    View Listings
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </nav>
 
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-              <h1 class="h2">Your Appointments</h1>
+              <h1 class="h2">Volunteer Opportunities</h1>
             </div>
 
             <div
@@ -184,4 +134,4 @@ function Dash(props) {
   );
 }
 
-export default Dash;
+export default Listings;
